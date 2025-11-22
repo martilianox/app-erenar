@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Navbar from '@/components/custom/navbar';
 import { Wind, Play, Pause, RotateCcw, Heart, Brain, Sparkles } from 'lucide-react';
 
@@ -44,18 +44,90 @@ export default function ExerciciosPage() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentPhase, setCurrentPhase] = useState<'inhale' | 'hold' | 'exhale' | 'holdAfter'>('inhale');
   const [countdown, setCountdown] = useState(selectedExercise.pattern.inhale);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Limpar intervalo ao desmontar componente
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, []);
+
+  // Lógica do timer regressivo
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    intervalRef.current = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev > 1) {
+          return prev - 1;
+        } else {
+          // Avançar para próxima fase
+          advancePhase();
+          return 0;
+        }
+      });
+    }, 1000);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isPlaying, currentPhase, selectedExercise]);
+
+  const advancePhase = () => {
+    setCurrentPhase((prevPhase) => {
+      let nextPhase: 'inhale' | 'hold' | 'exhale' | 'holdAfter' = 'inhale';
+      let nextCountdown = selectedExercise.pattern.inhale;
+
+      if (prevPhase === 'inhale') {
+        if (selectedExercise.pattern.hold > 0) {
+          nextPhase = 'hold';
+          nextCountdown = selectedExercise.pattern.hold;
+        } else {
+          nextPhase = 'exhale';
+          nextCountdown = selectedExercise.pattern.exhale;
+        }
+      } else if (prevPhase === 'hold') {
+        nextPhase = 'exhale';
+        nextCountdown = selectedExercise.pattern.exhale;
+      } else if (prevPhase === 'exhale') {
+        if (selectedExercise.pattern.holdAfter !== undefined && selectedExercise.pattern.holdAfter > 0) {
+          nextPhase = 'holdAfter';
+          nextCountdown = selectedExercise.pattern.holdAfter;
+        } else {
+          nextPhase = 'inhale';
+          nextCountdown = selectedExercise.pattern.inhale;
+        }
+      } else if (prevPhase === 'holdAfter') {
+        nextPhase = 'inhale';
+        nextCountdown = selectedExercise.pattern.inhale;
+      }
+
+      setCountdown(nextCountdown);
+      return nextPhase;
+    });
+  };
 
   const startExercise = () => {
     setIsPlaying(true);
-    // Aqui você implementaria a lógica do timer
   };
 
   const pauseExercise = () => {
     setIsPlaying(false);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
   };
 
   const resetExercise = () => {
     setIsPlaying(false);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
     setCurrentPhase('inhale');
     setCountdown(selectedExercise.pattern.inhale);
   };
@@ -100,7 +172,12 @@ export default function ExerciciosPage() {
                   key={exercise.id}
                   onClick={() => {
                     setSelectedExercise(exercise);
-                    resetExercise();
+                    setIsPlaying(false);
+                    if (intervalRef.current) {
+                      clearInterval(intervalRef.current);
+                    }
+                    setCurrentPhase('inhale');
+                    setCountdown(exercise.pattern.inhale);
                   }}
                   className={`w-full text-left p-6 rounded-2xl transition-all duration-300 ${
                     selectedExercise.id === exercise.id

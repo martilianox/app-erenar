@@ -1,10 +1,28 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Heart, Activity, BookOpen, Wind, TrendingUp, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from '@/components/custom/navbar';
+import SplashScreen from '@/components/custom/splash-screen';
 
 export default function Home() {
+  const [showSplash, setShowSplash] = useState(true);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Não renderiza nada até montar no cliente
+  if (!mounted) {
+    return null;
+  }
+
+  if (showSplash) {
+    return <SplashScreen onComplete={() => setShowSplash(false)} />;
+  }
+
   return (
     <>
       <Navbar />
@@ -24,7 +42,7 @@ export default function Home() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4">
               Bem-vindo ao{' '}
               <span className="bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-                erenar
+                Serenar
               </span>
             </h1>
             

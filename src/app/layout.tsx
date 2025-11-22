@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "erenar - Seu espaço de paz e equilíbrio",
+  title: "Serenar - Seu espaço de paz e equilíbrio",
   description: "Entenda, acompanhe e reduza a ansiedade de forma simples, humana e acolhedora.",
 };
 

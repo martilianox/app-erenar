@@ -50,13 +50,13 @@ export default function AssistentePage() {
     <>
       <Navbar />
       
-      <main className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-20 pb-24 md:pb-8">
+      <main className="min-h-screen bg-gradient-to-br from-serenar-blue/20 via-serenar-green/10 to-serenar-blue/20 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-20 pb-24 md:pb-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-[calc(100vh-8rem)]">
           
           {/* Header */}
           <div className="text-center mb-6 animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm px-4 py-2 rounded-full mb-4 shadow-lg">
-              <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+              <Sparkles className="w-4 h-4 text-serenar-blue dark:text-serenar-blue" />
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Assistente disponível 24/7
               </span>
@@ -83,14 +83,14 @@ export default function AssistentePage() {
                   <div
                     className={`max-w-[80%] p-4 rounded-2xl ${
                       message.role === 'user'
-                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
+                        ? 'bg-gradient-to-r from-serenar-blue to-serenar-green text-white'
                         : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
                     }`}
                   >
                     {message.role === 'assistant' && (
                       <div className="flex items-center gap-2 mb-2">
-                        <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                        <span className="text-xs font-medium text-purple-600 dark:text-purple-400">
+                        <Sparkles className="w-4 h-4 text-serenar-blue dark:text-serenar-blue" />
+                        <span className="text-xs font-medium text-serenar-blue dark:text-serenar-blue">
                           Assistente
                         </span>
                       </div>
@@ -110,7 +110,7 @@ export default function AssistentePage() {
                     <button
                       key={index}
                       onClick={() => handleQuickAction(action.label)}
-                      className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full text-sm text-gray-700 dark:text-gray-300 transition-colors"
+                      className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-serenar-blue/10 dark:hover:bg-gray-600 rounded-full text-sm text-gray-700 dark:text-gray-300 transition-colors"
                     >
                       <Icon className="w-4 h-4" />
                       {action.label}
@@ -129,11 +129,11 @@ export default function AssistentePage() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                   placeholder="Digite sua mensagem..."
-                  className="flex-1 px-4 py-3 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-purple-500 dark:focus:border-purple-400 focus:outline-none transition-colors"
+                  className="flex-1 px-4 py-3 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-serenar-blue dark:focus:border-serenar-blue focus:outline-none transition-colors"
                 />
                 <button
                   onClick={sendMessage}
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-3 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                  className="bg-gradient-to-r from-serenar-blue to-serenar-green text-white p-3 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                 >
                   <Send className="w-5 h-5" />
                 </button>

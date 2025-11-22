@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Heart, Home, BookOpen, Wind, Activity, MessageCircle } from 'lucide-react';
+import { Home, BookOpen, Wind, Activity, MessageCircle, Users } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Início', icon: Home },
   { href: '/monitoramento', label: 'Monitorar', icon: Activity },
   { href: '/diario', label: 'Diário', icon: BookOpen },
   { href: '/exercicios', label: 'Exercícios', icon: Wind },
+  { href: '/contatos', label: 'Contatos', icon: Users },
   { href: '/assistente', label: 'Apoio', icon: MessageCircle },
 ];
 
@@ -20,12 +21,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-              <Heart className="w-5 h-5 text-white" />
-            </div>
+          <Link href="/" className="flex items-center gap-3 group">
+            <img 
+              src="https://k6hrqrxuu8obbfwn.public.blob.vercel-storage.com/temp/a06d209d-e19f-45e0-9cc5-8aa16b9627f0.png" 
+              alt="Logo Serenar" 
+              className="h-10 w-10 rounded-2xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105" 
+            />
             <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-              erenar
+              Serenar
             </span>
           </Link>
 

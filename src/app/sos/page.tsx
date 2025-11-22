@@ -1,8 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/custom/navbar';
-import { Heart, Wind, Phone, MessageCircle, Sparkles, Shield } from 'lucide-react';
+import { Heart, Wind, Phone, MessageCircle, Sparkles, Shield, UserPlus } from 'lucide-react';
+import Link from 'next/link';
+
+interface Contact {
+  id: string;
+  name: string;
+  phone: string;
+  relationship: string;
+}
 
 const quickTechniques = [
   {
@@ -52,6 +60,16 @@ export default function SOSPage() {
   const [selectedTechnique, setSelectedTechnique] = useState(quickTechniques[0]);
   const [currentStep, setCurrentStep] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [showContactsModal, setShowContactsModal] = useState(false);
+
+  // Carregar contatos do localStorage
+  useEffect(() => {
+    const savedContacts = localStorage.getItem('trustedContacts');
+    if (savedContacts) {
+      setContacts(JSON.parse(savedContacts));
+    }
+  }, []);
 
   const startTechnique = () => {
     setIsActive(true);
@@ -70,6 +88,10 @@ export default function SOSPage() {
   const resetTechnique = () => {
     setIsActive(false);
     setCurrentStep(0);
+  };
+
+  const handleCallContact = (phone: string) => {
+    window.location.href = `tel:${phone}`;
   };
 
   return (
@@ -224,12 +246,17 @@ export default function SOSPage() {
 
           {/* Emergency Contacts */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
-              <MessageCircle className="w-5 h-5" />
-              Conversar com Assistente IA
-            </button>
+            <Link href="/assistente">
+              <button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
+                <MessageCircle className="w-5 h-5" />
+                Conversar com Assistente IA
+              </button>
+            </Link>
             
-            <button className="bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
+            <button 
+              onClick={() => setShowContactsModal(true)}
+              className="bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+            >
               <Phone className="w-5 h-5" />
               Ligar para Contato de Confiança
             </button>
@@ -245,6 +272,90 @@ export default function SOSPage() {
 
         </div>
       </main>
+
+      {/* Contacts Modal */}
+      {showContactsModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl max-w-md w-full max-h-[80vh] overflow-y-auto shadow-2xl">
+            <div className="p-6 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Contatos de Confiança
+                </h2>
+                <button
+                  onClick={() => setShowContactsModal(false)}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-colors"
+                >
+                  <span className="text-2xl text-gray-500 dark:text-gray-400">×</span>
+                </button>
+              </div>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Escolha alguém para ligar agora
+              </p>
+            </div>
+
+            <div className="p-6">
+              {contacts.length === 0 ? (
+                <div className="text-center py-8">
+                  <UserPlus className="w-16 h-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    Nenhum contato cadastrado
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-6">
+                    Cadastre pessoas de confiança para ligar em momentos de crise
+                  </p>
+                  <Link href="/contatos">
+                    <button
+                      onClick={() => setShowContactsModal(false)}
+                      className="bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2"
+                    >
+                      <UserPlus className="w-5 h-5" />
+                      Cadastrar Contatos
+                    </button>
+                  </Link>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {contacts.map((contact) => (
+                    <button
+                      key={contact.id}
+                      onClick={() => handleCallContact(contact.phone)}
+                      className="w-full bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 hover:from-green-100 hover:to-emerald-100 dark:hover:from-green-900/30 dark:hover:to-emerald-900/30 rounded-2xl p-4 transition-all duration-300 hover:scale-105 border-2 border-green-200 dark:border-green-800 text-left"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center flex-shrink-0">
+                          <Phone className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-bold text-gray-900 dark:text-white">
+                            {contact.name}
+                          </h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                            {contact.relationship}
+                          </p>
+                          <p className="text-sm text-green-600 dark:text-green-400 font-medium">
+                            {contact.phone}
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+
+                  <Link href="/contatos">
+                    <button
+                      onClick={() => setShowContactsModal(false)}
+                      className="w-full mt-4 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold py-3 px-6 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300 flex items-center justify-center gap-2"
+                    >
+                      <UserPlus className="w-5 h-5" />
+                      Gerenciar Contatos
+                    </button>
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
