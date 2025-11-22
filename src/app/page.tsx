@@ -1,10 +1,26 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Heart, Activity, BookOpen, Wind, TrendingUp, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from '@/components/custom/navbar';
+import SplashScreen from '@/components/custom/splash-screen';
 
 export default function Home() {
+  const [showSplash, setShowSplash] = useState(true);
+
+  // Função para completar o splash e mostrar conteúdo principal
+  const handleSplashComplete = () => {
+    console.log('✅ SplashScreen completado - mostrando conteúdo principal');
+    setShowSplash(false);
+  };
+
+  // Se ainda está mostrando splash, renderiza apenas ele
+  if (showSplash) {
+    return <SplashScreen onComplete={handleSplashComplete} />;
+  }
+
+  // Após splash, renderiza o conteúdo principal
   return (
     <>
       <Navbar />
