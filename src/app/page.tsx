@@ -1,28 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { Heart, Activity, BookOpen, Wind, TrendingUp, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from '@/components/custom/navbar';
-import SplashScreen from '@/components/custom/splash-screen';
 
 export default function Home() {
-  const [showSplash, setShowSplash] = useState(true);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Não renderiza nada até montar no cliente
-  if (!mounted) {
-    return null;
-  }
-
-  if (showSplash) {
-    return <SplashScreen onComplete={() => setShowSplash(false)} />;
-  }
-
   return (
     <>
       <Navbar />
