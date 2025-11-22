@@ -25,13 +25,13 @@ export default function DiarioPage() {
     <>
       <Navbar />
       
-      <main className="min-h-screen bg-gradient-to-br from-serenar-blue/20 via-serenar-green/10 to-serenar-blue/20 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-20 pb-24 md:pb-8">
+      <main className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-20 pb-24 md:pb-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Header */}
           <div className="text-center mb-8 animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm px-4 py-2 rounded-full mb-4 shadow-lg">
-              <BookOpen className="w-4 h-4 text-serenar-blue dark:text-serenar-blue" />
+              <BookOpen className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Seu espaço seguro de expressão
               </span>
@@ -48,7 +48,7 @@ export default function DiarioPage() {
           {/* Date Display */}
           <div className="bg-white dark:bg-gray-800 rounded-3xl p-4 shadow-xl mb-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-serenar-blue dark:text-serenar-blue" />
+              <Calendar className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               <span className="text-gray-700 dark:text-gray-300 font-medium">
                 {new Date().toLocaleDateString('pt-BR', { 
                   weekday: 'long', 
@@ -67,14 +67,14 @@ export default function DiarioPage() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Dê um título para este dia..."
-              className="w-full text-2xl font-bold px-4 py-3 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-serenar-blue dark:focus:border-serenar-blue focus:outline-none transition-colors"
+              className="w-full text-2xl font-bold px-4 py-3 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none transition-colors"
             />
           </div>
 
           {/* Main Content */}
           <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 sm:p-8 shadow-xl mb-6">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-serenar-blue dark:text-serenar-blue" />
+              <Sparkles className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               O que você está sentindo?
             </h2>
             
@@ -82,7 +82,7 @@ export default function DiarioPage() {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="Escreva livremente sobre seus pensamentos, sentimentos, medos, alegrias... Este é um espaço só seu, sem julgamentos."
-              className="w-full h-64 px-4 py-3 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-serenar-blue dark:focus:border-serenar-blue focus:outline-none transition-colors resize-none"
+              className="w-full h-64 px-4 py-3 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none transition-colors resize-none"
             />
             
             <div className="mt-4 text-sm text-gray-500 dark:text-gray-400">
@@ -91,7 +91,7 @@ export default function DiarioPage() {
           </div>
 
           {/* Gratitude Section */}
-          <div className="bg-gradient-to-br from-serenar-green/20 to-serenar-blue/20 dark:from-green-900/20 dark:to-emerald-900/20 rounded-3xl p-6 sm:p-8 shadow-xl mb-6">
+          <div className="bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 rounded-3xl p-6 sm:p-8 shadow-xl mb-6">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
               ✨ Três coisas pelas quais sou grato hoje
             </h2>
@@ -104,12 +104,12 @@ export default function DiarioPage() {
                   value={item}
                   onChange={(e) => updateGratitude(index, e.target.value)}
                   placeholder={`${index + 1}. Algo que trouxe alegria ou paz...`}
-                  className="w-full px-4 py-3 rounded-2xl border-2 border-serenar-green/50 dark:border-green-800 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-serenar-green dark:focus:border-serenar-green focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-2xl border-2 border-green-200 dark:border-green-800 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-green-500 dark:focus:border-green-400 focus:outline-none transition-colors"
                 />
               ))}
             </div>
             
-            <div className="mt-4 text-sm text-serenar-green dark:text-green-300">
+            <div className="mt-4 text-sm text-green-800 dark:text-green-300">
               🌟 Praticar gratidão diariamente reduz ansiedade e melhora o humor
             </div>
           </div>
@@ -118,7 +118,7 @@ export default function DiarioPage() {
           <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={handleSave}
-              className="flex-1 bg-gradient-to-r from-serenar-blue to-serenar-green text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+              className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
             >
               <Save className="w-5 h-5" />
               {saved ? 'Salvo com sucesso!' : 'Salvar Diário'}
@@ -134,8 +134,8 @@ export default function DiarioPage() {
 
           {/* Success Message */}
           {saved && (
-            <div className="mt-6 bg-gradient-to-r from-serenar-green/50 to-serenar-blue/50 dark:from-green-900/20 dark:to-emerald-900/20 border border-serenar-green/50 dark:border-green-800 rounded-2xl p-6 text-center animate-fade-in">
-              <p className="text-serenar-green dark:text-green-300 font-medium">
+            <div className="mt-6 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 rounded-2xl p-6 text-center animate-fade-in">
+              <p className="text-green-800 dark:text-green-300 font-medium">
                 Seu diário foi salvo. Você está cuidando da sua saúde emocional! 💚
               </p>
             </div>
@@ -144,7 +144,7 @@ export default function DiarioPage() {
           {/* AI Insights Placeholder */}
           <div className="mt-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-3xl p-6 border border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-2 mb-3">
-              <Sparkles className="w-5 h-5 text-serenar-blue dark:text-serenar-blue" />
+              <Sparkles className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               <h3 className="font-bold text-gray-900 dark:text-white">
                 Análise Inteligente (em breve)
               </h3>

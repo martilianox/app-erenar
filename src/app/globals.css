@@ -37,9 +37,6 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --color-serenar-blue: var(--serenar-blue);
-  --color-serenar-green: var(--serenar-green);
-  --color-serenar-orange: var(--serenar-orange);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -87,9 +84,6 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --serenar-blue: oklch(0.6 0.1 220);
-  --serenar-green: oklch(0.7 0.15 140);
-  --serenar-orange: oklch(0.75 0.2 60);
 }
 
 .dark {
@@ -124,9 +118,6 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-  --serenar-blue: oklch(0.5 0.1 220);
-  --serenar-green: oklch(0.6 0.15 140);
-  --serenar-orange: oklch(0.7 0.2 60);
 }
 
 @layer base {
@@ -136,29 +127,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-/* Splash Screen Styles */
-.splash-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: var(--background);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  opacity: 1;
-  transition: opacity 4s ease-out;
-}
-
-.splash-fade-out {
-  opacity: 0;
-}
-
-.splash-logo {
-  transform: scale(2);
-  transition: transform 0.5s ease-in-out;
 }
